@@ -23,13 +23,12 @@ pub fn create_book(
    }
 }
 
-#[get("/book/<path>")]
+#[get("/book/<id>")]
 pub fn get_book(
     db: &State<MongoRepo>,
-    path: String
+    id: String
 ) -> Result<Json<Book>, Status> {
     
-    let id = path;
     if id.is_empty() {
         return Err(Status::BadRequest)
     }

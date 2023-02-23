@@ -25,9 +25,9 @@ pub struct MongoRepo {
 impl MongoRepo {
     pub fn init() -> Self {
        dotenv().ok(); 
-       let uri = match env::var("MONGURI") {
-        Ok(val) => val.to_string(),
-        Err(err) => format!("Error loading environment variable: {}", err),
+       let uri = match env::var("MONGOURI") {
+            Ok(val) => val.to_string(),
+            Err(err) => format!("Error loading environment variable: {}", err),
         };
 
         let client = Client::with_uri_str(uri).unwrap();
