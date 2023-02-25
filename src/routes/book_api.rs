@@ -1,4 +1,4 @@
-use crate::database::{Book, MongoRepo};
+use crate::database::{book::Book, MongoRepo};
 use mongodb::results::InsertOneResult;
 use rocket::{http::Status, serde::json::Json, State};
 
@@ -13,7 +13,8 @@ pub fn create_book(
         title: new_book.title.to_owned(),
         author: new_book.author.to_owned(),
         desc: new_book.desc.to_owned(),
-        release_date: new_book.release_date.to_owned() 
+        release_date: new_book.release_date.to_owned(),
+        ..Book::default()
    }; 
    let book_detail = db.create_book(data);
 
