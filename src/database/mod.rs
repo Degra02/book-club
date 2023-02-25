@@ -39,7 +39,7 @@ impl MongoRepo {
 
     pub fn create_book(&self, new_book: Book) -> Result<InsertOneResult, Error> {
        let new_doc = Book {
-        id: None,
+         id: None,
         ..new_book
        };
        let book = self
@@ -53,12 +53,30 @@ impl MongoRepo {
 
     pub fn get_book(&self, id: &String) -> Result<Book, Error> {
         let obj_id = ObjectId::parse_str(id).unwrap();
-        let filter = doc!{"_id:": obj_id};
+        let filter = doc!{"_id": obj_id};
         let book_detail = self
             .col
             .find_one(filter, None)
             .ok()
             .expect("Error retrieving Book information");
         Ok(book_detail.unwrap())
+    }
+
+    pub fn get_book_title(&self, title: &String) -> Result<Book, Error> {
+        let filter = doc! {"title": title};
+        let book_detail = self.col
+            .find_one(filter, None)
+            .ok()
+            .expect("Error retrieving Book information");
+        Ok(book_detail.unwrap())
+    }
+
+    pub fn get_all_books(&self) -> Result<Vec<Book>, Error> {
+        let cursor = self.col
+            .find(None, None)
+            .ok()
+            .expect("Error getting all book");
+        let books = cursor.map(|doc| doc.unwrap()).collect();
+        Ok(books)
     }
 }

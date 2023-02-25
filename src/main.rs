@@ -14,5 +14,5 @@ fn rocket() -> _ {
     rocket::build()
         .manage(db)
         .mount("/", routes![index, files])
-        .mount("/", routes![create_book, get_book])
+        .mount("/", routes![create_book, get_book, get_book_title, get_all_books])
 }

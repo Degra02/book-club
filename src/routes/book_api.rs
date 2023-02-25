@@ -38,3 +38,31 @@ pub fn get_book(
         Err(_) => Err(Status::InternalServerError),
     }
 }
+
+
+#[get("/book/title?<title>")]
+pub fn get_book_title(
+    db: &State<MongoRepo>,
+    title: String
+) -> Result<Json<Book>, Status> {
+    
+    if title.is_empty() {
+        return Err(Status::BadRequest)
+    }
+    let book_detail = db.get_book_title(&title);
+    match book_detail {
+        Ok(book) => Ok(Json(book)),
+        Err(_) => Err(Status::InternalServerError),
+    }
+}
+
+#[get("/books")]
+pub fn get_all_books(
+    db: &State<MongoRepo>
+    ) -> Result<Json<Vec<Book>>, Status> {
+    let books = db.get_all_books();
+    match books {
+        Ok(vec) => Ok(Json(vec)),
+        Err(_) => Err(Status::InternalServerError)
+    }
+}
