@@ -1,16 +1,15 @@
 use std::{io, path::{Path, PathBuf}};
-use rocket::fs::NamedFile;
+use rocket::{fs::NamedFile, State};
+use rocket_dyn_templates::context;
+use rocket_include_tera::{TeraContextManager, EtagIfNoneMatch, TeraResponse};
 
 
 #[get("/")]
-pub async fn index() -> io::Result<NamedFile>{
-    let page_directory_path = format!("{}/frontend/build", env!("CARGO_MANIFEST_DIR"));
-    NamedFile::open(Path::new(&page_directory_path).join("index.html")).await
-}
-
-#[get("/<file..>")]
-pub async fn files(file: PathBuf) -> io::Result<NamedFile> {
-    let page_directory_path = 
-  format!("{}/frontend/build", env!("CARGO_MANIFEST_DIR"));
-  NamedFile::open(Path::new(&page_directory_path).join(file)).await
+pub fn homepage(
+    tera_cm: &State<TeraContextManager>,
+    etag_if_none_match: EtagIfNoneMatch,
+) -> TeraResponse {
+    tera_response!(disable_minify tera_cm, etag_if_none_match, "base", context! {
+        title: "BookClub"
+    })
 }
