@@ -16,6 +16,8 @@ pub struct Book {
     pub desc: String,
     pub release_date: String,
 
+    pub isbn: String,
+
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub labels: Option<Vec<String>>,

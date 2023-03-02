@@ -18,7 +18,8 @@ fn rocket() -> _ {
         .attach(TeraResponse::fairing(|tera| {
             tera_resources_initialize!(
                 tera,
-                "base" => "templates/base.html"
+                "base" => "templates/base.html",
+                "book_detail" => "templates/book_detail.html"
             )
         }))
         .manage(db)

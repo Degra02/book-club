@@ -1,5 +1,4 @@
-use std::{io, path::{Path, PathBuf}};
-use rocket::{fs::NamedFile, State};
+use rocket::State;
 use rocket_dyn_templates::context;
 use rocket_include_tera::{TeraContextManager, EtagIfNoneMatch, TeraResponse};
 

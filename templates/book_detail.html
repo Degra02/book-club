@@ -1,0 +1,11 @@
+{% extends "base" %}
+
+{% block content %}
+<h1> {{ book.title }}</h1>
+<p>
+    Author: {{ book.author }} <br>
+    Release Date: {{ book.release_date }} <br>
+    isbn: {{ book.isbn }} <br>
+    labels: {{ book.labels }} <br>
+</p>
+{% endblock %}
