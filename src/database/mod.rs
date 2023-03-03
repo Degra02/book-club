@@ -1,12 +1,12 @@
-use std::env;
-use mongodb::sync::{Collection, Client};
 use dotenv::dotenv;
+use mongodb::sync::{Client, Collection};
+use std::env;
 
-pub mod user;
 pub mod book;
+pub mod user;
 
-use user::User;
 use self::book::Book;
+use user::User;
 
 pub struct MongoRepo {
     book_col: Collection<Book>,
@@ -15,8 +15,8 @@ pub struct MongoRepo {
 
 impl MongoRepo {
     pub fn init() -> Self {
-       dotenv().ok(); 
-       let uri = match env::var("MONGOURI") {
+        dotenv().ok();
+        let uri = match env::var("MONGOURI") {
             Ok(val) => val.to_string(),
             Err(err) => format!("Error loading environment variable: {}", err),
         };
@@ -26,7 +26,9 @@ impl MongoRepo {
         let book_col: Collection<Book> = db.collection("Book");
         let users_col: Collection<User> = db.collection("User");
 
-        Self { book_col, users_col }
+        Self {
+            book_col,
+            users_col,
+        }
     }
-
 }

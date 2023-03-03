@@ -1,6 +1,6 @@
 use mongodb::bson::doc;
 use mongodb::bson::oid::ObjectId;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use mongodb::bson::extjson::de::Error;
 use mongodb::results::InsertOneResult;
@@ -13,11 +13,11 @@ pub struct User {
     pub password: String,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>
+    pub email: Option<String>,
 }
 
 impl MongoRepo {
-    pub fn create_user(&self, new_user: User) -> Result<InsertOneResult, Error>{
+    pub fn create_user(&self, new_user: User) -> Result<InsertOneResult, Error> {
         todo!()
-    }  
+    }
 }

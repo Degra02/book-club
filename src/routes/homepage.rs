@@ -1,7 +1,6 @@
 use rocket::State;
 use rocket_dyn_templates::context;
-use rocket_include_tera::{TeraContextManager, EtagIfNoneMatch, TeraResponse};
-
+use rocket_include_tera::{EtagIfNoneMatch, TeraContextManager, TeraResponse};
 
 #[get("/")]
 pub fn homepage(
